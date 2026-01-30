@@ -122,7 +122,10 @@
           <el-button
             type="primary"
             @click="handleResetPassword"
-            v-if="returnUser()?.scope.search('admin') != -1"
+            v-if="
+              returnUser()?.scope.search('admin') != -1 ||
+              returnUser()?.dmclRoleCode === 'BP299201002'
+            "
             >Đặt lại mật khẩu</el-button
           >
           <el-button @click="dialogVisible = false">Đóng</el-button>
