@@ -116,9 +116,7 @@ export default {
         try {
           const res = await coppyLinkApple({ code });
           if (res.data.meta.success) {
-            navigator.clipboard.writeText(text).then(() => {
-              this.$message.success("Đã copy thành công");
-            });
+            this.copyToClipboard(text);
           } else {
             this.$message.warning("Không có liên kết để copy");
             return;
@@ -127,9 +125,34 @@ export default {
           this.loadingBtn = false;
         }
       } else {
-        navigator.clipboard.writeText(text).then(() => {
+        this.copyToClipboard(text);
+      }
+    },
+    copyToClipboard(text) {
+      // Fallback method - works on both HTTP and HTTPS
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      textArea.style.opacity = "0";
+
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        const successful = document.execCommand("copy");
+        document.body.removeChild(textArea);
+
+        if (successful) {
           this.$message.success("Đã copy thành công");
-        });
+        } else {
+          this.$message.warning("Không thể copy tự động");
+        }
+      } catch (err) {
+        document.body.removeChild(textArea);
+        this.$message.error("Copy thất bại: " + err.message);
       }
     },
   },

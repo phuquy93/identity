@@ -122,7 +122,6 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button
-            v-if="returnUser()?.scope.search('admin') != -1"
             :loading="loading"
             class="el-button el-button--primary"
             icon="el-icon-check"
@@ -130,7 +129,6 @@
             >Duyệt</el-button
           >
           <el-button
-            v-if="returnUser()?.scope.search('admin') != -1"
             :loading="loading"
             class="el-button el-button--danger"
             icon="el-icon-close"

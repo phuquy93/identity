@@ -63,7 +63,7 @@ export function getListExtention(params) {
 export function deviceaccessAccept(params) {
   return request({
     url:
-      `/App/DeviceAccess/` +
+      `/${is_admin > -1 ? "Admin" : "App"}/DeviceAccess/` +
       params.id +
       "/" +
       (params.type === "duyet" ? "Accept" : "Reject"),
